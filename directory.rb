@@ -24,10 +24,10 @@ def print_header
 end # print_header END
 
 def print (students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  students.each_with_index do |student, index|
+    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end # students.each do END
-end # print_header END
+end # print (students) END
 
 def print_footer(students)
 puts "Overall, we have #{students.count} great students"
