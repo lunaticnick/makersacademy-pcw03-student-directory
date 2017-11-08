@@ -57,7 +57,7 @@ def input_students
             cohort = gets.chomp
           end
       end
-      cohort = cohort.to_sym
+      cohort = cohort.downcase.to_sym
       # ask for the bday of the student
       # puts "What is the date of birth for the student?"
       # bday = gets.chomp
