@@ -26,7 +26,7 @@
 # ===============================================
 
 $page_width = 80
-@students = []
+@students = []  # Why we use an instance variable rather than a global one
 
 # ===============================================
 # --------- GLOBAL VARIABLES SECTION END --------
@@ -99,7 +99,7 @@ def print_header
     puts "The Students of Villains Academy".center($page_width)
     puts "-----------------------".center($page_width)
     puts
-end # print_header END
+end # def print_header END
 
 # -------------------
 
@@ -111,12 +111,15 @@ def print #(students)
       @students.each_with_index do |student, index|
         puts "#{index + 1}. #{student[:name]}".ljust($page_width/2) + "(#{student[:cohort]} cohort)".rjust($page_width/2)
       end # @students.each do END
+
     else
+
       puts "What is the criterion you want to use?"
       puts "\"Length\" OR \"First Letter\" OR \"Cohort\""
       criterion = gets.chomp.downcase
       puts
       if criterion == "first letter"
+
             puts "What is the first letter of the name of the students you want to print?"
             letter = gets.chomp.downcase
             puts
@@ -126,7 +129,9 @@ def print #(students)
                 puts "#{index + 1}. #{student[:name]}".ljust($page_width/2) + "(#{student[:cohort]} cohort)".rjust($page_width/2)
                 end
             end # @students.each do END
+
         elsif criterion == "length"
+
             puts "What is the max length of the name of the students you want to print?"
             length = gets.chomp.to_i
             puts
@@ -138,6 +143,7 @@ def print #(students)
             end # @students.each do END
 
         elsif criterion == "cohort"
+
             puts "Which cohort of students you want?"
             cohort_crit = gets.chomp.downcase
 
@@ -145,20 +151,22 @@ def print #(students)
             while !cohorts.include? (cohort_crit)
               puts "There is a typo in your entry or the cohort does not exist. Please type the cohort again!"
               cohort_crit = gets.chomp
-            end
+            end # while END
 
             cohort_crit = cohort_crit.to_sym
             puts
             puts "The student(s) of the #{cohort_crit.to_s} cohort are:"
             @students.map.with_index do |student, index|
-              if student[:cohort] == cohort_crit
-                puts "#{index + 1}. #{student[:name]}".ljust($page_width/2) + "(#{student[:cohort]} cohort)".rjust($page_width/2)
-              end
+                if student[:cohort] == cohort_crit
+                  puts "#{index + 1}. #{student[:name]}".ljust($page_width/2) + "(#{student[:cohort]} cohort)".rjust($page_width/2)
+                  end
             end # .map.with_index END
 
         else
+
             puts "You have not selected any criteria. So the only info you will get is:"
             puts
+
         end # if criterion END
 
     end # if selection == "y" END
@@ -200,6 +208,25 @@ end # def show_students END
 
 # -------------------
 
+def process(selection)
+
+  case selection
+    when "1"
+      # students =
+      input_students
+    when "2"
+      show_students
+    when "9"
+      exit
+    else
+      puts "I don't know what you want. Try again!"
+      puts
+  end #case END
+
+end # process(selection)
+
+# -------------------
+
 def interactive_menu
     loop do
       # 1. print the menu and ask the user what to do
@@ -207,18 +234,7 @@ def interactive_menu
       # 2. read the input and save it into a variable
         selection = gets.chomp
       # 3. do what the user has asked
-      case selection
-        when "1"
-          # students =
-          input_students
-        when "2"
-          show_students
-        when "9"
-          exit
-        else
-          puts "I don't know what you want. Try again!"
-          puts
-      end #case END
+      def process(selection)
   end # loop do END
 end
 
