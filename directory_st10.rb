@@ -103,7 +103,7 @@ end # def print_header END
 
 # -------------------
 
-def print #(students)
+def print_students_list
   puts "Do you want to print all the students? [Y/N]"
   selection = gets.chomp.downcase
 
@@ -171,11 +171,11 @@ def print #(students)
 
     end # if selection == "y" END
 
-end # def print END
+end # def print_students_list END
 
 # -------------------
 
-def print_footer #(students)
+def print_footer
   puts
   if @students.count == 1
     puts "Overall, we have #{@students.count} great student"
@@ -202,8 +202,8 @@ end # def print_menu END
 
 def show_students
   print_header
-  print #(@students)
-  print_footer #(students)
+  print_students_list
+  print_footer
 end # def show_students END
 
 # -------------------
@@ -223,7 +223,7 @@ def process(selection)
       puts
   end #case END
 
-end # process(selection)
+end # process(selection) END
 
 # -------------------
 
@@ -232,7 +232,7 @@ def interactive_menu
       # 1. print the menu and ask the user what to do
         print_menu
       # 2. read the input and save it into a variable + do what the user has asked
-      def process(gets.chomp)
+      process(gets.chomp)
   end # loop do END
 end
 
