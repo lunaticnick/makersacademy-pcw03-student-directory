@@ -41,8 +41,8 @@ $page_width = 80
 def input_students
     puts "Please add the names of the student you want"
     puts "To finish entering please press Enter twice"
-    # create an empty array
-    students =[]
+    # create an empty array -- Commented out as @students has been defined
+    # students =[]
     # get the first name
     name = gets.chomp
     # while the name is not empty, repeat this code
@@ -72,13 +72,13 @@ def input_students
       # puts "How tall is the student?"
       # height = gets.chomp
       # add the student hash to the array
-      students << {name: name, cohort: cohort}
+      @students << {name: name, cohort: cohort}
       # add the student hask to the array - complex
       # students << {name: name, cohort: :november, birthday: bday, country_birth: bcountry, nationality: national, height: height}
-      if students.count > 1
-        puts "Now we have #{students.count} students"
+      if @students.count > 1
+        puts "Now we have #{@students.count} students"
       else
-        puts "Now we have #{students.count} student"
+        puts "Now we have #{@students.count} student"
       end
 
       # get another name from the user
@@ -88,8 +88,8 @@ def input_students
       name = gets.chomp
 
     end
-    # return the array of students
-    students
+    # return the array of students -- Commented out as @students has been defined
+    # students
 end #def input_students END
 
 # -------------------
@@ -103,14 +103,14 @@ end # print_header END
 
 # -------------------
 
-def print (students)
+def print #(students)
   puts "Do you want to print all the students? [Y/N]"
   selection = gets.chomp.downcase
 
   if selection == "y"
-      students.each_with_index do |student, index|
+      @students.each_with_index do |student, index|
         puts "#{index + 1}. #{student[:name]}".ljust($page_width/2) + "(#{student[:cohort]} cohort)".rjust($page_width/2)
-      end # students.each do END
+      end # @students.each do END
     else
       puts "What is the criterion you want to use?"
       puts "\"Length\" OR \"First Letter\" OR \"Cohort\""
@@ -121,21 +121,21 @@ def print (students)
             letter = gets.chomp.downcase
             puts
             puts "The student(s) whose name starts with #{letter} are:"
-            students.each_with_index do |student, index|
+            @students.each_with_index do |student, index|
                 if student[:name].match (/^#{letter}/i)
                 puts "#{index + 1}. #{student[:name]}".ljust($page_width/2) + "(#{student[:cohort]} cohort)".rjust($page_width/2)
                 end
-            end # students.each do END
+            end # @students.each do END
         elsif criterion == "length"
             puts "What is the max length of the name of the students you want to print?"
             length = gets.chomp.to_i
             puts
             puts "The student(s) whose name is shorter than #{length} characters are:"
-            students.each_with_index do |student, index|
+            @students.each_with_index do |student, index|
                 if student[:name].length < length
                 puts "#{index + 1}. #{student[:name]}".ljust($page_width/2) + "(#{student[:cohort]} cohort)".rjust($page_width/2)
                 end
-            end # students.each do END
+            end # @students.each do END
 
         elsif criterion == "cohort"
             puts "Which cohort of students you want?"
@@ -150,7 +150,7 @@ def print (students)
             cohort_crit = cohort_crit.to_sym
             puts
             puts "The student(s) of the #{cohort_crit.to_s} cohort are:"
-            students.map.with_index do |student, index|
+            @students.map.with_index do |student, index|
               if student[:cohort] == cohort_crit
                 puts "#{index + 1}. #{student[:name]}".ljust($page_width/2) + "(#{student[:cohort]} cohort)".rjust($page_width/2)
               end
@@ -163,17 +163,17 @@ def print (students)
 
     end # if selection == "y" END
 
-end # print (students) END
+end # def print END
 
 # -------------------
 
-def print_footer(students)
+def print_footer #(students)
   puts
-  if students.count == 1
-    puts "Overall, we have #{students.count} great student"
+  if @students.count == 1
+    puts "Overall, we have #{@students.count} great student"
     puts
-      elsif students.count > 1
-      puts "Overall, we have #{students.count} great students"
+    elsif @students.count > 1
+      puts "Overall, we have #{@students.count} great students"
       puts
     else
       puts "WE HAVE NO REGISTERED STUDENTS"
@@ -182,19 +182,26 @@ def print_footer(students)
 end # def print_footer END
 
 # -------------------
+
 def print_menu
   puts "What would you like to do?"
   puts "  1.  Input the students"
   puts "  2.  Show the students"
   puts "  9. Exit"
-end
+end # def print_menu END
+
 # -------------------
+
+def show_students
+  print_header
+  print #(@students)
+  print_footer #(students)
+end # def show_students END
 
 # -------------------
 
 def interactive_menu
-  students = []
-  loop do
+    loop do
       # 1. print the menu and ask the user what to do
         print_menu
       # 2. read the input and save it into a variable
@@ -202,11 +209,10 @@ def interactive_menu
       # 3. do what the user has asked
       case selection
         when "1"
-          students = input_students
+          # students =
+          input_students
         when "2"
-          print_header
-          print(students)
-          print_footer(students)
+          show_students
         when "9"
           exit
         else
