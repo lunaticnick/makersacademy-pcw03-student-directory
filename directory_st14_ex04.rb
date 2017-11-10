@@ -105,8 +105,8 @@ def load_students (filename = "students.csv")
     name, cohort = line.chomp.split(",")
     students_to_array(name,cohort)
   end # file.readlines.each END
-  file.close
   puts "Students have been succesfully loaded!!\n"
+  file.close
 end # def load_students
 
 # -------------------
@@ -234,8 +234,8 @@ def save_students
      csv_line = student_data.join (",")
      file.puts csv_line
   end # @students.each END
-  file.close
   puts "Students have been succesfully saved to #{file}!!"
+  file.close
 end # def save_students END
 
 # -------------------
