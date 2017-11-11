@@ -103,7 +103,7 @@ def read_lines_file (file)
     name, cohort = line.chomp.split(",")
     students_to_array(name,cohort)
   end # file.readlines.each END
-end
+end # def read_lines_file END
 
 # -------------------
 
@@ -251,25 +251,35 @@ end # def show_students END
 
 # -------------------
 
+def save_file_lines (file)
+  @students.each do |student|
+     student_data =[student[:name], student[:cohort]]
+     csv_line = student_data.join (",")
+     file.puts csv_line
+  end # @students.each END
+end # def save_file_lines END
+
+# -------------------
+
 def save_students
   puts "Selected Option 3: Save Students List to CSV file\n"
   puts " Do you want to save to a specific file or to default?\n"
   puts "Please enter the filename you want or press ENTER for default"
   file_name_sv = STDIN.gets.chomp
   if file_name_sv.empty?
-      file = File.open("students.csv","w")
+      File.open("students.csv","w") do |file|
+       save_file_lines (file)
+       end
       file_name_sv= "default"
   else
-      file = File.open(file_name_sv,"w")
+      File.open(file_name_sv,"w") do |file|
+      save_file_lines (file)
+      end
   end
   # iterate over the array of students
-  @students.each do |student|
-     student_data =[student[:name], student[:cohort]]
-     csv_line = student_data.join (",")
-     file.puts csv_line
-  end # @students.each END
+
   puts "Students have been succesfully saved to #{file_name_sv}!!"
-  file.close
+
 end # def save_students END
 
 # -------------------
