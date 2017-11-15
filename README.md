@@ -1,3 +1,5 @@
+[![forthebadge](http://forthebadge.com/images/badges/made-with-ruby.svg)](http://forthebadge.com)
+
 # Student Directory #
 
 The student directory script allows you to manage the list of students enrolled
